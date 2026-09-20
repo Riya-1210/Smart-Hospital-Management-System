@@ -6,7 +6,6 @@
     },
     "backend": {
       "root": "backend/",
-      "framework": "node",
       "entrypoint": "src/server.ts"
     }
   },
