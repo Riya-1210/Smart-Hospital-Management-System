@@ -27,20 +27,23 @@ const allowedOrigins = new Set(
   [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
-    'https://smart-hospital-management-system-git-main-innov-ai-tors.vercel.app',
     ...(process.env.FRONTEND_URL || '')
       .split(',')
       .map((o) => o.trim().replace(/\/+$/, ''))
       .filter(Boolean),
   ]
 );
+const vercelProjectOrigin = /^https:\/\/smart-hospital-management-system(?:-[a-z0-9-]+)?\.vercel\.app$/i;
 
 const corsOptions: CorsOptions = {
   origin(origin, callback) {
     // Allow same-origin/non-browser tools (curl, health checks) which send
     // no Origin header; browsers always send one on cross-origin calls.
     const normalizedOrigin = origin?.replace(/\/+$/, '');
-    if (!origin || (normalizedOrigin && allowedOrigins.has(normalizedOrigin))) return callback(null, true);
+    if (
+      !origin ||
+      (normalizedOrigin && (allowedOrigins.has(normalizedOrigin) || vercelProjectOrigin.test(normalizedOrigin)))
+    ) return callback(null, true);
     return callback(new Error(`CORS: origin ${origin} is not allowed`));
   },
   credentials: true,
