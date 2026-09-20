@@ -4,10 +4,11 @@
       "root": ".",
       "framework": "vite"
     },
-    "backend": {
-      "root": "backend/",
-      "entrypoint": "src/server.ts"
-    }
+   "backend": {
+  "root": "backend/",
+  "framework": "express",
+  "entrypoint": "src/server.ts"
+}
   },
   "rewrites": [
     {
