@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "postinstall": "npm install --prefix backend",
+    "build:backend": "npm run build --prefix backend",
     "dev": "concurrently -k -n backend,frontend -c yellow,cyan \"npm run dev --prefix backend\" \"vite\"",
     "dev:frontend": "vite",
     "dev:backend": "npm run dev --prefix backend",
