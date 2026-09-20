@@ -1,0 +1,558 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════
+   ROLE THEME ENGINE
+   The `primary` Tailwind palette is driven by CSS variables.
+   Default (no role / landing): Royal Blue.
+   Each role swaps the variables via `data-role` on <html>.
+   Values are "R G B" channel triplets consumed by tailwind.config.js.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root,
+[data-role='doctor'] {
+  /* Royal / deep medical blue */
+  --p50: 239 245 252;
+  --p100: 219 233 248;
+  --p200: 186 209 239;
+  --p300: 141 179 224;
+  --p400: 83 138 200;
+  --p435: 58 112 178;
+  --p500: 32 90 159;
+  --p600: 21 74 143;
+  --p700: 17 58 116;
+  --p800: 14 45 92;
+  --p900: 10 32 67;
+  --p600-rgb: 21 74 143;
+  --app-bg: 247 250 253;
+}
+
+[data-role='patient'] {
+  /* Royal / deep emerald green */
+  --p50: 237 248 243;
+  --p100: 213 240 227;
+  --p200: 176 222 198;
+  --p300: 127 201 168;
+  --p400: 63 158 117;
+  --p435: 42 132 96;
+  --p500: 27 105 77;
+  --p600: 22 87 64;
+  --p700: 18 71 53;
+  --p800: 14 57 43;
+  --p900: 10 43 32;
+  --p600-rgb: 22 87 64;
+  --app-bg: 246 251 248;
+}
+
+[data-role='admin'] {
+  /* Muted royal gold / antique mustard — warm, authoritative, NOT bright yellow */
+  --p50: 251 248 239;
+  --p100: 245 238 218;
+  --p200: 233 220 180;
+  --p300: 214 193 138;
+  --p400: 187 158 95;
+  --p435: 163 132 68;
+  --p500: 138 109 51;
+  --p600: 117 90 42;
+  --p700: 95 72 35;
+  --p800: 76 57 29;
+  --p900: 58 43 23;
+  --p600-rgb: 117 90 42;
+  --app-bg: 250 248 243;
+}
+
+[data-role='nurse'] {
+  /* Royal violet / deep purple */
+  --p50: 245 242 251;
+  --p100: 233 227 247;
+  --p200: 212 201 240;
+  --p300: 185 165 228;
+  --p400: 148 121 210;
+  --p435: 122 93 190;
+  --p500: 100 71 170;
+  --p600: 85 58 148;
+  --p700: 70 47 123;
+  --p800: 56 38 99;
+  --p900: 43 29 77;
+  --p600-rgb: 85 58 148;
+  --app-bg: 249 247 253;
+}
+
+@layer base {
+  body {
+    @apply text-neutral-900 font-sans;
+    background-color: rgb(var(--app-bg));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-neutral-200;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neutral-400 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-500;
+  }
+
+  h1, h2, h3, h4 { @apply font-semibold; }
+
+  * {
+    @apply transition-colors duration-150;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Cards */
+  .card {
+    @apply bg-white border border-neutral-300 rounded-xl p-4 shadow-card hover:shadow-card-md transition-shadow;
+  }
+  .card-sm {
+    @apply bg-white border border-neutral-300 rounded-lg p-3 shadow-card;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium px-4 py-2.5 rounded-lg transition-all duration-200 text-sm shadow-sm hover:shadow-md active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply bg-white hover:bg-neutral-100 text-neutral-800 font-medium px-4 py-2.5 rounded-lg transition-all duration-200 border border-neutral-300 text-sm hover:border-neutral-400;
+  }
+  .btn-danger {
+    @apply bg-critical-400 hover:bg-critical-500 text-white font-medium px-4 py-2.5 rounded-lg transition-all duration-200 text-sm shadow-sm hover:shadow-md active:scale-[0.98];
+  }
+  .btn-success {
+    @apply bg-success-400 hover:bg-success-500 text-white font-medium px-4 py-2.5 rounded-lg transition-all duration-200 text-sm shadow-sm hover:shadow-md active:scale-[0.98];
+  }
+  .btn-warning {
+    @apply bg-warning-400 hover:bg-warning-500 text-white font-medium px-4 py-2.5 rounded-lg transition-all duration-200 text-sm shadow-sm hover:shadow-md active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply hover:bg-neutral-200 text-neutral-700 font-medium px-3 py-1.5 rounded-lg transition-colors text-sm;
+  }
+
+  /* Priority / severity badges */
+  .badge-critical {
+    @apply bg-critical-100 text-critical-600 border border-critical-200 text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+  .badge-high {
+    @apply bg-warning-100 text-warning-600 border border-warning-200 text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+  .badge-moderate {
+    @apply bg-teal-100 text-teal-600 border border-teal-200 text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+  .badge-low {
+    @apply bg-success-100 text-success-600 border border-success-200 text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+  .badge-info {
+    @apply bg-neutral-200 text-neutral-700 border border-neutral-300 text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+
+  /* Status dot */
+  .status-dot {
+    @apply w-2 h-2 rounded-full inline-block flex-shrink-0;
+  }
+
+  /* Sidebar nav */
+  .nav-item {
+    @apply flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-neutral-600 hover:text-neutral-900 hover:bg-primary-50 transition-all text-sm font-medium;
+  }
+  .nav-item-active {
+    @apply flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-primary-700 bg-primary-50 border border-primary-200 text-sm font-medium;
+  }
+
+  /* Section title */
+  .section-title {
+    @apply text-base font-semibold text-neutral-900 mb-3;
+  }
+
+  /* Tables */
+  .data-table {
+    @apply w-full text-sm;
+  }
+  .data-table th {
+    @apply text-left text-neutral-600 font-medium py-2.5 px-3 border-b border-neutral-300 bg-neutral-100 text-xs uppercase tracking-wide;
+  }
+  .data-table td {
+    @apply py-2.5 px-3 border-b border-neutral-200 text-neutral-800;
+  }
+  .data-table tr:hover td {
+    @apply bg-primary-50/50;
+  }
+  .data-table tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* Timeline */
+  .timeline-item {
+    @apply flex gap-3 pb-4 relative;
+  }
+
+  /* Agent card */
+  .agent-card {
+    @apply card border-l-4;
+  }
+
+  /* Risk bar */
+  .risk-bar {
+    @apply h-1.5 rounded-full bg-neutral-200 overflow-hidden;
+  }
+
+  /* Demo / simulation label */
+  .demo-tag {
+    @apply text-[10px] font-bold tracking-widest text-warning-500 uppercase;
+  }
+
+  /* Metric card */
+  .metric-card {
+    @apply card flex flex-col gap-1;
+  }
+
+  /* Page header */
+  .page-header {
+    @apply flex items-center justify-between flex-wrap gap-3 mb-5;
+  }
+  .page-title {
+    @apply text-lg font-bold text-neutral-900;
+  }
+  .page-subtitle {
+    @apply text-sm text-neutral-600 mt-0.5;
+  }
+
+  /* Alert banners */
+  .alert-critical {
+    @apply border border-critical-200 bg-critical-50 rounded-xl p-3 flex items-start gap-3;
+  }
+  .alert-warning {
+    @apply border border-warning-200 bg-warning-50 rounded-xl p-3 flex items-start gap-3;
+  }
+  .alert-info {
+    @apply border border-teal-200 bg-teal-50 rounded-xl p-3 flex items-start gap-3;
+  }
+  .alert-success {
+    @apply border border-success-200 bg-success-50 rounded-xl p-3 flex items-start gap-3;
+  }
+
+  /* Badge variants */
+  .badge {
+    @apply inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+  .badge-amber {
+    @apply bg-warning-100 text-warning-600 border border-warning-200;
+  }
+  .badge-green {
+    @apply bg-success-100 text-success-600 border border-success-200;
+  }
+  .badge-gray {
+    @apply bg-neutral-200 text-neutral-600 border border-neutral-300;
+  }
+  .badge-terra {
+    @apply bg-critical-100 text-critical-600 border border-critical-200;
+  }
+
+  /* Button compound variants */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-medium px-4 py-2 rounded-lg transition-all duration-200 text-sm;
+  }
+  .btn-sm {
+    @apply text-xs px-3 py-1.5;
+  }
+
+  /* Table base */
+  .table-base {
+    @apply w-full text-sm;
+  }
+  .table-base th {
+    @apply text-left text-neutral-500 font-semibold py-2.5 px-3 border-b border-neutral-300 bg-neutral-100 text-xs uppercase tracking-wide;
+  }
+  .table-base td {
+    @apply py-2.5 px-3 border-b border-neutral-200 text-neutral-600;
+  }
+  .table-base tr:hover td {
+    @apply bg-primary-50/50;
+  }
+
+  /* Status dot variants */
+  .status-critical {
+    @apply bg-critical-400;
+  }
+  .status-available {
+    @apply bg-success-400;
+  }
+  .status-limited {
+    @apply bg-warning-400;
+  }
+  .status-offline {
+    @apply bg-neutral-400;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     LANDING PAGE — premium components
+     ═══════════════════════════════════════════════════════════ */
+
+  /* Hero headline word accent */
+  .hero-accent {
+    @apply text-primary-600;
+  }
+
+  /* Landing primary CTA with role glow */
+  .landing-cta {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-bold text-white cursor-pointer;
+    background-image: linear-gradient(135deg, rgb(var(--p500)) 0%, rgb(var(--p700)) 100%);
+    box-shadow: 0 12px 28px -8px rgba(var(--p600-rgb), 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  }
+  .landing-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 38px -10px rgba(var(--p600-rgb), 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    filter: brightness(1.06);
+  }
+  .landing-cta:active {
+    transform: translateY(0);
+  }
+
+  /* Landing secondary CTA */
+  .landing-cta-secondary {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-semibold bg-white text-neutral-800 border border-neutral-300 cursor-pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    box-shadow: 0 2px 8px rgba(13, 27, 42, 0.05);
+  }
+  .landing-cta-secondary:hover {
+    transform: translateY(-2px);
+    border-color: rgb(var(--p300));
+    color: rgb(var(--p700));
+    box-shadow: 0 10px 24px -8px rgba(13, 27, 42, 0.12);
+  }
+
+  /* Landing eyebrow badge */
+  .landing-eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border bg-white/80 backdrop-blur px-4 py-1.5;
+    border-color: rgb(var(--p200));
+    color: rgb(var(--p700));
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* Capability card */
+  .intel-card {
+    @apply relative bg-white rounded-2xl border p-6 text-left cursor-pointer overflow-hidden;
+    border-color: rgb(var(--p200));
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .intel-card:hover {
+    transform: translateY(-4px);
+    border-color: rgb(var(--p300));
+    box-shadow: 0 20px 44px -16px rgba(13, 27, 42, 0.16);
+  }
+  .intel-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(var(--p100), 0.5), transparent 45%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+  .intel-card:hover::after {
+    opacity: 1;
+  }
+
+  /* Role entry card on landing */
+  .role-entry {
+    @apply relative text-left bg-white rounded-2xl border p-6 cursor-pointer overflow-hidden;
+    border-color: rgb(var(--p200));
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .role-entry:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 22px 48px -18px rgba(13, 27, 42, 0.2);
+  }
+
+  /* Animated flow line for the SVG network visual */
+  .flow-line {
+    stroke-dasharray: 5 19;
+    animation: dashFlow 1.6s linear infinite;
+  }
+  .flow-line-reverse {
+    stroke-dasharray: 4 20;
+    animation: dashFlow 2.1s linear infinite reverse;
+  }
+
+  /* Soft radial glow behind hero visual */
+  .hero-glow {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(70px);
+    pointer-events: none;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     LOGIN — interactive role selector (vars: --rc set inline)
+     ═══════════════════════════════════════════════════════════ */
+  .role-card {
+    position: relative;
+    background: #fff;
+    border: 1.5px solid #DDE5E1;
+    border-radius: 14px;
+    padding: 14px 12px;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+  }
+  .role-card:hover {
+    transform: translateY(-4px);
+    border-color: rgb(var(--rc) / 0.55);
+    box-shadow: 0 14px 30px -12px rgb(var(--rc) / 0.35);
+  }
+  .role-card:focus-visible {
+    outline: 2px solid rgb(var(--rc) / 0.7);
+    outline-offset: 2px;
+  }
+  .role-card-selected {
+    border-color: rgb(var(--rc) / 0.85) !important;
+    background: rgb(var(--rc-tint) / 0.65);
+    box-shadow: 0 0 0 3px rgb(var(--rc) / 0.14), 0 12px 28px -14px rgb(var(--rc) / 0.35);
+  }
+  .role-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F7F8F6;
+    border: 1px solid #EDEEF0;
+    color: #66716C;
+    transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+  }
+  .role-card:hover .role-card-icon {
+    background: rgb(var(--rc-tint));
+    border-color: rgb(var(--rc) / 0.35);
+    color: rgb(var(--rc));
+  }
+  .role-card-selected .role-card-icon {
+    background: rgb(var(--rc));
+    border-color: rgb(var(--rc));
+    color: #fff;
+  }
+  .role-check {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 9999px;
+    background: rgb(var(--rc));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgb(var(--rc) / 0.45);
+    animation: popIn 0.18s ease-out;
+  }
+
+  /* Dynamic role-colored login submit button */
+  .role-login-btn {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    background-color: rgb(var(--rc));
+    /* No background transition: role color must switch instantly and reliably */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 10px 24px -10px rgb(var(--rc) / 0.55);
+  }
+  .role-login-btn:hover {
+    background-color: rgb(var(--rc-strong));
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px -10px rgb(var(--rc) / 0.6);
+  }
+  .role-login-btn:active {
+    transform: translateY(0);
+  }
+  .role-login-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Login left brand panel */
+  .login-brand {
+    background:
+      radial-gradient(ellipse 60% 45% at 80% 10%, rgb(var(--rc) / 0.35), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 10% 90%, rgb(var(--rc) / 0.22), transparent 60%),
+      linear-gradient(160deg, #0D1B2A 0%, #12283D 55%, #0D1B2A 100%);
+  }
+  .login-brand-dotgrid {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* Hospital Assistant chatbot panel — smooth open/close */
+  .chatbot-panel {
+    animation: chatbotIn 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    transform-origin: bottom right;
+  }
+  @keyframes chatbotIn {
+    0% { opacity: 0; transform: translateY(14px) scale(0.96); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+}
+
+@layer utilities {
+  .text-muted {
+    @apply text-neutral-600;
+  }
+  .divider {
+    @apply border-t border-neutral-300 my-4;
+  }
+}
+
+/* ── Plain CSS keyframes (guaranteed available for component classes) ── */
+@keyframes dashFlow {
+  0% { stroke-dashoffset: 24; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes nodePulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+@keyframes corePulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.08); }
+}
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes orbitSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes popIn {
+  0% { transform: scale(0.4); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
